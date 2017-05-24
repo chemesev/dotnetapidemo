@@ -4,47 +4,56 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace apiserver.Controllers
 {
     [Route("api/[controller]")]
     public class TasksController : Controller
-    {
+    {     
         // GET api/tasks
         [HttpGet]
         public IEnumerable<Task> Get()
         {
-            var task1 = new Task 
+         
+            using (TasksDb db = new TasksDb())
             {
-                id = 1,
-                title = "Buy groceries",
-                description = "Milk, Cheese, Pizza, Fruit, Tylenol",
-                done = false
-            };
-            var task2 = new Task
-            {
-                id = 2,
-                title = "Learn Python",
-                description = "Need to find a good Python tutorial on the web",
-                done = false
-            };
-            //var taskslist = new List<Task>{task1, task2};
-            //JsonResult result = new JsonResult(taskslist);
-            var result = new Task[]{task1, task2};
-            return result;
+                return db.TasksTable.ToList();
+            }
         }
-
         // GET api/tasks/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetById")]
+        public IActionResult Get(int id)
         {
-            return "task description";
+           using (TasksDb db = new TasksDb())
+            {
+                var item = db.TasksTable.FirstOrDefault(x => x.id == id);
+                if (item == null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(item);
+            }
+            
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Task item)
         {
+         
+            
+            if (item == null)
+                {
+                    return BadRequest();
+                }
+            using (TasksDb db = new TasksDb())
+            {
+                db.TasksTable.Add(item);
+                db.SaveChanges();
+                return CreatedAtRoute("GetById", new { id = item.id }, item);
+            }
         }
+        
 
         // PUT api/values/5
         [HttpPut("{id}")]
