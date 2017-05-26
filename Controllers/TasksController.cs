@@ -59,7 +59,7 @@ namespace apiserver.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Task item)
         {
-                if (item == null)
+                if (item == null || item.id != id )
                 {
                     return BadRequest();
                 }
@@ -69,10 +69,12 @@ namespace apiserver.Controllers
                 if (row == null)
                 {
                     return NotFound();
-                }
-
-            
-                db.TasksTable.Update(item);
+                }  
+                var result = db.TasksTable.Find(id); 
+                result.title = item.title;
+                result.description =item.description;
+                result.done = item.done;
+                db.TasksTable.Update(result);
                 db.SaveChanges();
                 //return CreatedAtRoute("GetById", new { id = item.id }, item);
                 return new NoContentResult();
