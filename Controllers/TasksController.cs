@@ -65,16 +65,15 @@ namespace apiserver.Controllers
                 }
             using (TasksDb db = new TasksDb())
             {
-                var row = db.TasksTable.FirstOrDefault(x => x.id == id);
-                if (row == null)
+                var newitem = db.TasksTable.Find(id); 
+                if (newitem == null)
                 {
                     return NotFound();
                 }  
-                var result = db.TasksTable.Find(id); 
-                result.title = item.title;
-                result.description =item.description;
-                result.done = item.done;
-                db.TasksTable.Update(result);
+                newitem.title = item.title;
+                newitem.description =item.description;
+                newitem.done = item.done;
+                db.TasksTable.Update(newitem);
                 db.SaveChanges();
                 //return CreatedAtRoute("GetById", new { id = item.id }, item);
                 return new NoContentResult();
@@ -85,8 +84,19 @@ namespace apiserver.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            using (TasksDb db = new TasksDb())
+            {                 
+                if (db.TasksTable.Where(t => t.id == id).Count() > 0) // Check if element exists
+                    db.TasksTable.Remove(db.TasksTable.First(t => t.id == id));
+                else
+                {
+                    return NotFound();
+                }
+                db.SaveChanges();
+                return new NoContentResult();
+            }
         }
     }
 }
