@@ -1,8 +1,0 @@
-D:\GitHub\apiserver\bin\Debug\netcoreapp1.1\apiserver.deps.json
-D:\GitHub\apiserver\bin\Debug\netcoreapp1.1\apiserver.runtimeconfig.json
-D:\GitHub\apiserver\bin\Debug\netcoreapp1.1\apiserver.runtimeconfig.dev.json
-D:\GitHub\apiserver\bin\Debug\netcoreapp1.1\apiserver.dll
-D:\GitHub\apiserver\bin\Debug\netcoreapp1.1\apiserver.pdb
-D:\GitHub\apiserver\obj\Debug\netcoreapp1.1\apiserver.AssemblyInfo.cs
-D:\GitHub\apiserver\obj\Debug\netcoreapp1.1\apiserver.dll
-D:\GitHub\apiserver\obj\Debug\netcoreapp1.1\apiserver.pdb
