@@ -57,8 +57,28 @@ namespace apiserver.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Task item)
         {
+                if (item == null)
+                {
+                    return BadRequest();
+                }
+            using (TasksDb db = new TasksDb())
+            {
+                var row = db.TasksTable.FirstOrDefault(x => x.id == id);
+                if (row == null)
+                {
+                    return NotFound();
+                }
+
+            
+                db.TasksTable.Update(item);
+                db.SaveChanges();
+                //return CreatedAtRoute("GetById", new { id = item.id }, item);
+                return new NoContentResult();
+            }
+
+
         }
 
         // DELETE api/values/5
