@@ -24,13 +24,14 @@
                 };
                 return $.ajax(request);
             }
-            self.updateTask = function(task, newTask) {
-                
-                var i = self.indexOf(task);
-                self.tasks()[i].uri(newTask.uri);
-                self.tasks()[i].title(newTask.title);
-                self.tasks()[i].description(newTask.description);
-                self.tasks()[i].done(newTask.done);
+            self.updateTask = function(task) {
+                self.ajax(task.uri(), 'GET').done(function(data) {
+                    var i = self.indexOf(task);
+                    self.tasks()[i].uri(self.tasksURI + "/" + data.id);
+                    self.tasks()[i].title(data.title);
+                    self.tasks()[i].description(data.description);
+                    self.tasks()[i].done(data.done);
+                });
             }
 
             self.beginAdd = function() {
@@ -51,8 +52,8 @@
                 $('#edit').modal('show');
             }
             self.edit = function(task, data) {
-                self.ajax(task.uri(), 'PUT', data).done(function(res) {
-                    self.updateTask(task, res.task);
+                self.ajax(task.uri(), 'PUT', data).done(function() {
+                    self.updateTask(task);
                 });
             }
             self.remove = function(task) {
@@ -110,6 +111,7 @@
         }
         function EditTaskViewModel() {
             var self = this;
+            self.uri = ko.observable(self.uri);
             self.title = ko.observable();
             self.description = ko.observable();
             self.done = ko.observable();
