@@ -17,9 +17,8 @@
     <div id="main" class="container">
         <button data-bind="click: beginAdd" class="btn">Add Task</button>
         <table class="table table-striped">
- 
             <tr><td style="width: 1px;"></td><td><b>Task</b></td><td><b>Options</b></td></tr>
-            <!-- ko foreach: tasks -->
+            <tbody class="task-list" data-bind="foreach: tasks">
             <tr>
                 <td>
                     <span data-bind="visible: done" class="label label-success">Done</span>
@@ -37,7 +36,7 @@
                     </span>
                 </td>
             </tr>
-            <!-- /ko -->
+            </tbody>
         </table>
     </div>
     <div id="add" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
