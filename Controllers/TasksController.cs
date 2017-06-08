@@ -59,7 +59,8 @@ namespace apiserver.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Task item)
         {
-                if (item == null || item.id != id )
+                if (item == null | id == 0  )
+                //item.id != id
                 {
                     return BadRequest();
                 }

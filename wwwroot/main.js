@@ -14,11 +14,19 @@
                     cache: false,
                     dataType: 'json',
                     data: JSON.stringify(data),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", 
+                            "Basic " + btoa(self.username + ":" + self.password));
+                    },
+                    error: function(jqXHR) {
+                        console.log("ajax error " + jqXHR.status);
+                    }
                 };
                 return $.ajax(request);
             }
             self.updateTask = function(task, newTask) {
-                var i = self.tasks.indexOf(task);
+                
+                var i = self.indexOf(task);
                 self.tasks()[i].uri(newTask.uri);
                 self.tasks()[i].title(newTask.title);
                 self.tasks()[i].description(newTask.description);
@@ -71,7 +79,7 @@
                 self.ajax(self.tasksURI, 'GET').done(function(data) {
                     for (var i = 0; i < data.length; i++) {
                         self.tasks.push({
-                            uri: ko.observable(data[i].uri),
+                            uri: ko.observable(self.tasksURI + "/" + data[i].id),
                             title: ko.observable(data[i].title),
                             description: ko.observable(data[i].description),
                             done: ko.observable(data[i].done)
@@ -108,6 +116,7 @@
  
             self.setTask = function(task) {
                 self.task = task;
+                self.uri(task.uri()); // id request
                 self.title(task.title());
                 self.description(task.description());
                 self.done(task.done());
