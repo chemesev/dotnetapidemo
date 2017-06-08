@@ -31,7 +31,7 @@
             self.add = function(task) {
                 self.ajax(self.tasksURI, 'POST', task).done(function(data) {
                     self.tasks.push({
-                        uri: ko.observable(data.id),
+                        uri: ko.observable(self.tasksURI + "/" + data.id),
                         title: ko.observable(data.title),
                         description: ko.observable(data.description),
                         done: ko.observable(data.done)
@@ -70,9 +70,7 @@
                     self.updateTask(task);
                 });
             }
-            self.beginLogin = function() {
-                $('#login').modal('show');
-            }
+ 
 
             self.ajax(self.tasksURI, 'GET').done(function(data) {
                 for (var i = 0; i < data.length; i++) {
@@ -96,11 +94,15 @@
             self.description = ko.observable();
  
             self.addTask = function() {
+                if (self.title == null) {
+                    alert("Provide a task")
+                }
                 $('#add').modal('hide');
                 tasksViewModel.add({
                     title: self.title(),
                     description: self.description()
                 });
+                //blank textarea 
                 self.title("");
                 self.description("");
             }
