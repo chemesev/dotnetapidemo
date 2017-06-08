@@ -94,9 +94,6 @@
             self.description = ko.observable();
  
             self.addTask = function() {
-                if (self.title == null) {
-                    alert("Provide a task")
-                }
                 $('#add').modal('hide');
                 tasksViewModel.add({
                     title: self.title(),

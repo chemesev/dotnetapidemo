@@ -42,7 +42,7 @@ namespace apiserver.Controllers
         {
          
             
-            if (item == null)
+            if (item.title == null)
                 {
                     return BadRequest();
                 }
