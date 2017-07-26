@@ -1,8 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'microsoft/dotnet'
-      args '1.1.2-sdk-jessie'
+      image 'microsoft/dotnet:1.1.2-sdk-jessie'
     }
     
   }
