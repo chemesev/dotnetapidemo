@@ -13,8 +13,10 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh '''dotnet version
-dotnet restore'''
+        sh '''dotnet --version
+dotnet restore
+dotnet build
+dotnet publish'''
       }
     }
   }
