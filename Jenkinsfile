@@ -1,9 +1,7 @@
 pipeline {
   agent {
     docker {
-
       image 'microsoft/dotnet:1.1.2-sdk-jessie'
-
     }
     
   }
@@ -13,9 +11,11 @@ pipeline {
         echo 'Prep Step'
       }
     }
+    stage('Build') {
+      steps {
+        sh '''dotnet version
+dotnet restore'''
+      }
+    }
   }
 }
-
-
-
-
