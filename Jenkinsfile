@@ -21,22 +21,24 @@ pipeline {
     }
     stage('Container'){
       steps {
-        docker.withRegistry("${registry_url}", "${docker_creds_id}") {
-          
-          // Set up the container to build
-          maintainer_name = "jayjohnson"
-          container_name = "django-nginx"
-      
-
-          echo "Building nginx with docker.build(${maintainer_name}/${container_name}:${build_tag})"
-          container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'nginx')
+        script{
+          docker.withRegistry("${registry_url}", "${docker_creds_id}") {
+            
+            // Set up the container to build
+            maintainer_name = "jayjohnson"
+            container_name = "django-nginx"
         
-          // add more tests
+
+            echo "Building nginx with docker.build(${maintainer_name}/${container_name}:${build_tag})"
+            container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'nginx')
           
-          stage "Pushing"
-          container.push()
+            // add more tests
           
-          //currentBuild.result = 'SUCCESS'
+
+            container.push()
+          
+            // currentBuild.result = 'SUCCESS'
+          }
         }
       }
     }
