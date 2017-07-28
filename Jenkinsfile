@@ -20,7 +20,8 @@ pipeline {
       }
     }
     stage('Container'){
-      docker.withRegistry("${registry_url}", "${docker_creds_id}") {
+      steps {
+        docker.withRegistry("${registry_url}", "${docker_creds_id}") {
           
           // Set up the container to build
           maintainer_name = "jayjohnson"
@@ -36,7 +37,10 @@ pipeline {
           container.push()
           
           //currentBuild.result = 'SUCCESS'
+        }
+      }
     }
+    
 
     }
   }
