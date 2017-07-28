@@ -22,7 +22,7 @@ pipeline {
     stage('Container'){
       steps {
         script{
-          docker.withRegistry("${registry_url}", "${docker_creds_id}") {
+          def container = docker.withRegistry("${registry_url}", "${docker_creds_id}") 
             
             // Set up the container to build
             maintainer_name = "jayjohnson"
@@ -30,7 +30,7 @@ pipeline {
         
 
             echo "Building nginx with docker.build(${maintainer_name}/${container_name}:${build_tag})"
-            container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'nginx')
+            container.build("${maintainer_name}/${container_name}:${build_tag}", 'nginx')
           
             // add more tests
           
@@ -38,7 +38,7 @@ pipeline {
             container.push()
           
             // currentBuild.result = 'SUCCESS'
-          }
+          
         }
       }
     }
