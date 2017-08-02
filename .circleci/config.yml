@@ -24,7 +24,7 @@ jobs:
 
       # build and push Docker image
       - run: |
-          TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t $CIRCLE_USERNAME/dotnetapidemo:$TAG .      # (3)
-          docker login -u $DOCKER_USER -p $DOCKER_PASS         # (4)
-          docker push $CIRCLE_USERNAME/dotnetapidemo:$TAG
+          TAG=$CIRCLE_USERNAME/CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
+          docker build -t $TAG .      
+          docker login -e $DOCKER_USER -u $CIRCLE_USERNAME -p $DOCKER_PASS         
+          docker push $TAG
