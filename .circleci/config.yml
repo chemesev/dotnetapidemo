@@ -7,7 +7,6 @@ jobs:
     environment:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      TAG: 0.1.$CIRCLE_BUILD_NUM
     steps:
       - checkout
       - run: dotnet restore
@@ -25,6 +24,7 @@ jobs:
 
       # build and push Docker image
       - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t $CIRCLE_USERNAME/dotnetapidemo:$TAG .      # (3)
           docker login -u $DOCKER_USER -p $DOCKER_PASS         # (4)
           docker push $CIRCLE_USERNAME/dotnetapidemo:$TAG
