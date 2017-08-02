@@ -10,4 +10,5 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore
-      - run: dotnet publish -c Release -o out
+      - run: dotnet build      
+      - run: dotnet publish -o out
