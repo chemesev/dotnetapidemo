@@ -25,7 +25,7 @@ integration_test (){
 if [ $RESPONSE -eq 200 ]; then
   echo success
 else
-  echo failed ($RESPONSE)
+  echo "failed ($RESPONSE)"
   exit 1
 fi
 }
