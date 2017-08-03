@@ -23,9 +23,18 @@ jobs:
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
 
+      # Integration Tests
+      - run:
+          name: Integration Tests
+          command: |
+            TAG=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
+            docker build -t $CIRCLE_PROJECT_REPONAME .
+            chmod +x Automation/integration_tests.sh
+            ./Automation/integration_tests.sh
+
       # build and push Docker image
       - run:
-          name: Build Docker Image - $CIRCLE_BUILD_NUM 
+          name: Build Docker Image
           command: |
             TAG=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
             docker build -t $TAG .      
