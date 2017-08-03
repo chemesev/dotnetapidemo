@@ -1,3 +1,4 @@
+#!/bin/bash -eo pipefail
 # define some colors to use for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
