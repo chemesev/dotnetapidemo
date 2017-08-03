@@ -12,7 +12,7 @@ jobs:
       - run: dotnet restore
       - run: dotnet ef database update
       - run: dotnet build      
-      - run: dotnet publish -o out
+      - run: dotnet publish -o out -v diag
       - setup_remote_docker
       - run:
           name: Install Docker client
