@@ -12,7 +12,7 @@ jobs:
       - run: dotnet restore
       - run: dotnet ef database update
       - run: dotnet build      
-      - run: dotnet publish -o out -v diag
+      - run: dotnet publish -o out
       - setup_remote_docker
       - run:
           name: Install Docker client
@@ -30,6 +30,7 @@ jobs:
             TAG=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
             docker build -t $CIRCLE_PROJECT_REPONAME .
             chmod +x Automation/integration_tests.sh
+            echo "Running Integration Tests..."
             ./Automation/integration_tests.sh
 
       # build and push Docker image
