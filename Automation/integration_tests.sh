@@ -25,7 +25,7 @@ integration_test (){
 if [ $RESPONSE -eq 200 ]; then
   echo success
 else
-  echo failed
+  echo failed ($RESPONSE)
   exit 1
 fi
 }
@@ -33,6 +33,7 @@ fi
 trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"'\
   HUP INT QUIT PIPE TERM
 # build and run the composed services
+echo "Running Docker container..."
 docker run -d -p 5000:5000 --name $CIRCLE_PROJECT_REPONAME $CIRCLE_PROJECT_REPONAME 
 integration_test
 if [ $? -ne 0 ] ; then
