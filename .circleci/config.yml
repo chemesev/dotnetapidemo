@@ -30,21 +30,21 @@ jobs:
             chmod +x /usr/local/bin/docker-compose
 
 
-      # Integration Tests
-      #- run:
-      #    name: Start container and verify it's working
-      #    command: |
-      #      set -x
-      ##      docker-compose -f Automation/docker-compose.yml up -d
-      #      docker run --network container:dotnetapidemo \
-      #        appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:5000/api/tasks
+      #Integration Tests
       - run:
-          name: Integration Tests
-          command: |
-            set -x
-            chmod +x Automation/run_tests.sh
-            echo "Running Integration Tests..."
-            ./Automation/run_tests.sh
+         name: Start container and verify it's working
+         command: |
+           set -x
+            docker-compose -f Automation/docker-compose.yml up -d
+           docker run --network container:dotnetapidemo \
+             appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:5000/api/tasks
+      # #- run:
+      # #    name: Integration Tests
+      # #    command: |
+      #       set -x
+      #       chmod +x Automation/run_tests.sh
+      #       echo "Running Integration Tests..."
+      #       ./Automation/run_tests.sh
 
       # build and push Docker image
       - run:
