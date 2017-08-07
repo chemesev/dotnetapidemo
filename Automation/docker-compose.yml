@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  dotnetapi:
+    build: .
+    container_name: dotnetapidemo
+    environment:
+      CONTACTS_DB_HOST: postgres
+      CONTACTS_DB_PORT: 5432
+      CONTACTS_DB_URL: postgres://root@postgres/root?sslmode=disable
+      CONTACTS_DB_MIGRATIONS: /migrations
+    ports:
+      - "80:5000"
+
+  database:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: root

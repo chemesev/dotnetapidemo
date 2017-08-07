@@ -1,6 +1,5 @@
 #!/bin/bash
-set -e
-set -x
+set -euxo pipefail
 # define some colors to use for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -24,7 +23,7 @@ integration_test (){
 	#curl	http://localhost:5000/api/v1/books/_id/1	\
 	#				|	jq	'.'
 
-  RESPONSE=$(curl -L --write-out "%{http_code}\n" --silent --output /dev/null "${DOCKER_MACHINE_NAME}:5000/api/tasks")
+RESPONSE=$(curl -L --write-out "%{http_code}\n" --silent --output /dev/null "localhost:5000/api/tasks")
 if [ $RESPONSE -eq 200 ]; then
   echo success
 else
