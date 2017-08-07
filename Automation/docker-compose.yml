@@ -17,9 +17,12 @@ services:
     image: postgres:9.6.2-alpine
     environment:
       POSTGRES_USER: root
+
   integration-tester:
     build:
       context: .
       dockerfile: Dockerfile.test
+    depends_on: 
+      - dotnetapidemo
     environment:
       API_URL: localhost
