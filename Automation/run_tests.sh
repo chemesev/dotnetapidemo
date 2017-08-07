@@ -13,7 +13,7 @@ trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"'\
   HUP INT QUIT PIPE TERM
 # build and run the composed services
 echo "Running Docker containers..."
-docker-compose -p ci build && docker-compose -p ci up -d
+docker-compose -f Automation/integration_tests.sh -p ci build && docker-compose -f Automation/integration_tests.sh -p ci up -d
 integration_test
 if [ $? -ne 0 ] ; then
   printf "${RED}Docker Compose Failed${NC}\n"
