@@ -23,4 +23,5 @@ else
   exit 1
 fi
 }
+sleep 60
 integration_test
