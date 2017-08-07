@@ -17,7 +17,7 @@ services:
       timeout: 10s
       retries: 3
     ports:
-#      - "5000"
+      - "5000"
 
   database:
     image: postgres:9.6.2-alpine
