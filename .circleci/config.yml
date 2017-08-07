@@ -46,7 +46,7 @@ jobs:
             echo "Running Integration Tests..."
             ./Automation/run_tests.sh
 
-      build and push Docker image
+      #build and push Docker image
       - run:
           name: Build Docker Image
           command: |
