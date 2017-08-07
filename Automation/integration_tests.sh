@@ -15,7 +15,7 @@ integration_test (){
 	#curl	http://localhost:5000/api/v1/books/_id/1	\
 	#				|	jq	'.'
 
-RESPONSE=$(curl -L --write-out "%{http_code}\n" --silent --output /dev/null "dotnetapidemo:5000/api/tasks")
+RESPONSE=$(curl -vL --write-out "%{http_code}\n" --silent --output /dev/null "dotnetapidemo:5000/api/tasks")
 if [ $RESPONSE -eq 200 ]; then
   echo success
 else
