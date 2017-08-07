@@ -10,6 +10,11 @@ services:
       CONTACTS_DB_PORT: 5432
       CONTACTS_DB_URL: postgres://root@postgres/root?sslmode=disable
       CONTACTS_DB_MIGRATIONS: /migrations
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/tasks"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
 #    ports:
 #      - "80:5000"
 
