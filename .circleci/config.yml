@@ -31,25 +31,20 @@ jobs:
 
 
       # Integration Tests
-      - run:
-          name: Start container and verify it's working
-          command: |
-            set -x
-            docker-compose -f Automation/docker-compose.yml up -d
-            # docker-compose will start 2 containers, the one with service will be named `contacts`
-            # we start another container with curl in the same network as `contacts`, this way we have
-            # all exposed ports from `contacts` available on `localhost` in this new container
-            docker run --network container:dotnetapidemo \
-              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:5000/api/tasks
+      #- run:
+      #    name: Start container and verify it's working
+      #    command: |
+      #      set -x
+      ##      docker-compose -f Automation/docker-compose.yml up -d
+      #      docker run --network container:dotnetapidemo \
+      #        appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:5000/api/tasks
       - run:
           name: Integration Tests
           command: |
             set -x
-            TAG=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
-            docker build -t $CIRCLE_PROJECT_REPONAME .
-            chmod +x Automation/integration_tests.sh
+            chmod +x Automation/run_tests.sh
             echo "Running Integration Tests..."
-            ./Automation/integration_tests.sh
+            ./Automation/run_tests.sh
 
       # build and push Docker image
       - run:

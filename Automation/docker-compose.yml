@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  dotnetapi:
+  dotnetapidemo:
     build: ../.
     container_name: dotnetapidemo
     environment:
@@ -9,10 +9,15 @@ services:
       CONTACTS_DB_PORT: 5432
       CONTACTS_DB_URL: postgres://root@postgres/root?sslmode=disable
       CONTACTS_DB_MIGRATIONS: /migrations
-    ports:
-      - "80:5000"
+#    ports:
+#      - "80:5000"
 
   database:
     image: postgres:9.6.2-alpine
     environment:
       POSTGRES_USER: root
+  integration-tester:
+    build: .
+    dockerfile: Dockerfile.test
+    container_name: dotnetapidemo
+    environment:
