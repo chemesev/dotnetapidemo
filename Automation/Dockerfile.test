@@ -7,4 +7,4 @@ WORKDIR /app
 
 ADD integration_tests.sh /app/integration_tests.sh
 
-CMD ["bash", "integration_tests.sh"]
+CMD ["sh", "integration_tests.sh"]
