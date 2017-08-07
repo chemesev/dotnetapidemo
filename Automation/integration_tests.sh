@@ -1,3 +1,5 @@
+#!/bin/bash
+set -euxo pipefail
 integration_test (){
   # curl	-H	'Content-Type:	application/json'	-X	PUT	-d	\
 	#					"{\"_id\":	1,
