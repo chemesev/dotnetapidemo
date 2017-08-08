@@ -9,13 +9,6 @@ else
   exit 1
 fi
 
-	#	
-	#curl	http://localhost:5000/api/v1/books	\
-	#			|	jq	'.'
-	#
-	#curl	http://localhost:5000/api/v1/books/_id/1	\
-	#				|	jq	'.'
-
 RESPONSE=$(curl -vL \
 			      -H	'Content-Type:	application/json'	-X	POST	-d	\
 						"{\"title\":	\"My	First	Task\",
