@@ -17,7 +17,7 @@ fi
 	#				|	jq	'.'
 
 RESPONSE=$(curl -vL \
-			      -H	'Content-Type:	application/json'	-X	PUT	-d	\
+			      -H	'Content-Type:	application/json'	-X	POST	-d	\
 						"{\"title\":	\"My	First	Task\",
 						\"description\":	\"Do Something\",
 						\"done\":	\"false\"}"	\
