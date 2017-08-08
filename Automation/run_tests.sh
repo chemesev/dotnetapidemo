@@ -13,7 +13,8 @@ trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"'\
   HUP INT QUIT PIPE TERM
 # build and run the composed services
 echo "Running Docker containers..."
-docker-compose -f Automation/docker-compose.yml -p ci build && docker-compose -f Automation/docker-compose.yml -p ci up -d
+docker-compose -f Automation/docker-compose.yml -p ci build > /dev/null 2>&1
+docker-compose -f Automation/docker-compose.yml -p ci up -d
 if [ $? -ne 0 ] ; then
   printf "${RED}Docker Compose Failed${NC}\n"
   exit -1
