@@ -33,10 +33,10 @@ namespace apiserver
             services.AddMvc();
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
                 services.AddDbContext<TasksDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+                        options.UseMySQL(Configuration.GetConnectionString("MySQLDbConnection")));
             else
                 services.AddDbContext<TasksDbContext>(options =>
-                        options.UseSqlite("Data Source=Tasks.db"));
+                        options.UseMySQL(Configuration.GetConnectionString("MySQLDbConnection")));
         
         }
 

@@ -20,7 +20,7 @@ services:
      - "5000:5000"
 
   database:
-    image: postgres:9.6.2-alpine
+    image: mysql:5.7
     environment:
       POSTGRES_USER: root
 

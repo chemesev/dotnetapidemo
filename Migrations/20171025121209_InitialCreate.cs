@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace apiserver.Migrations
 {
@@ -14,7 +13,7 @@ namespace apiserver.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:AutoIncrement", true),
                     description = table.Column<string>(nullable: true),
                     done = table.Column<bool>(nullable: false),
                     title = table.Column<string>(nullable: true)

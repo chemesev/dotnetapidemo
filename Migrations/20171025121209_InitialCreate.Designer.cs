@@ -8,14 +8,13 @@ using apiserver.Models;
 namespace apiserver.Migrations
 {
     [DbContext(typeof(TasksDbContext))]
-    [Migration("20171020160336_InitialCreate")]
+    [Migration("20171025121209_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.2")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.1.2");
 
             modelBuilder.Entity("apiserver.Models.TodoTask", b =>
                 {
