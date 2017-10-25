@@ -3,19 +3,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using apiserver;
+using apiserver.Models;
 
 namespace apiserver.Migrations
 {
-    [DbContext(typeof(TasksDb))]
-    partial class TasksDbModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TasksDbContext))]
+    [Migration("20171020160336_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("apiserver.Task", b =>
+            modelBuilder.Entity("apiserver.Models.TodoTask", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();

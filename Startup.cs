@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using apiserver.Models;
 
 namespace apiserver
 {
@@ -29,6 +31,13 @@ namespace apiserver
         {
             // Add framework services.
             services.AddMvc();
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<TasksDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<TasksDbContext>(options =>
+                        options.UseSqlite("Data Source=Tasks.db"));
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
