@@ -29,15 +29,20 @@ namespace apiserver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Variables for database settings
+            //var host = Environment.GetEnvironmentVariable("DB_HOST");
             // Add framework services.
+            
             services.AddMvc();
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
                 services.AddDbContext<TasksDbContext>(options =>
-                        options.UseMySQL(Configuration.GetConnectionString("MySQLDbConnection")));
+                        options.UseMySql(Configuration.GetConnectionString("MySQLDbConnection")));
             else
                 services.AddDbContext<TasksDbContext>(options =>
-                        options.UseMySQL(Configuration.GetConnectionString("MySQLDbConnection")));
-        
+                        options.UseMySql(Configuration.GetConnectionString("localMySQLDbConnection")));
+            
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<TasksDbContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
