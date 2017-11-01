@@ -1,6 +1,6 @@
         function TasksViewModel() {
             var self = this;
-            self.tasksURI = 'http://localhost:5000/api/tasks';
+            self.tasksURI = '/api/tasks';
             self.tasks = ko.observableArray();
 
             self.ajax = function(uri, method, data) {
