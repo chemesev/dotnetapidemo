@@ -3,19 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using apiserver;
+using apiserver.Models;
 
 namespace apiserver.Migrations
 {
-    [DbContext(typeof(TasksDb))]
-    partial class TasksDbModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TasksDbContext))]
+    partial class TasksDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+                .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("apiserver.Task", b =>
+            modelBuilder.Entity("apiserver.Models.TodoTask", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();

@@ -7,22 +7,47 @@ services:
       context: ../.
       dockerfile: Dockerfile
     environment:
-      CONTACTS_DB_HOST: postgres
-      CONTACTS_DB_PORT: 5432
-      CONTACTS_DB_URL: postgres://root@postgres/root?sslmode=disable
-      CONTACTS_DB_MIGRATIONS: /migrations
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_USER:
+      DB_PASSWORD:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/api/tasks"]
-      interval: 1m30s
+      interval: 30s
       timeout: 10s
       retries: 3
     ports:
      - "5000:5000"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontendproxy:
+    build:
+      context: ../wwwroot
+      dockerfile: Dockerfile
+    depends_on: 
+      - dotnetapidemo
+    environment:
+      API_HOST: dotnetapidemo
+    ports:
+     - "80:80"
 
   database:
-    image: postgres:9.6.2-alpine
+    image: mysql:5.7
+    ports:
+     - "3306:3306"
     environment:
-      POSTGRES_USER: root
+      MYSQL_ROOT_PASSWORD: k8z8rFwp
+      MYSQL_DATABASE: TasksDB
+      MYSQL_USER: tasksdb
+      MYSQL_PASSWORD: simplepassword
+    healthcheck:
+      test: "/usr/bin/mysql --user=$MYSQL_USER --password=$MYSQL_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
+
 
   integration-tester:
     build:

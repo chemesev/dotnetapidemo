@@ -3,14 +3,14 @@ jobs:
   build:
     working_directory: /dotnetapidemo
     docker:
-      - image: microsoft/dotnet:sdk
+      - image: microsoft/dotnet:1-sdk
     environment:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
     steps:
       - checkout
       - run: dotnet restore
-      - run: dotnet ef database update
+#      - run: dotnet ef database update
       - run: dotnet build      
       - run: dotnet publish -o out
       - setup_remote_docker

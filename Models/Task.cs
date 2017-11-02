@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace apiserver
+namespace apiserver.Models
 {
-   public class Task 
+   public class TodoTask 
     {
         [Key]
         public int id { get; set; }
