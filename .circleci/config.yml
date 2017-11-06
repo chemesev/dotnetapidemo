@@ -53,7 +53,7 @@ jobs:
             TAG=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:0.1.$CIRCLE_BUILD_NUM
             LATEST=$CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
             docker build -t $TAG .   
-            docker tag $LATEST $TAG   
+            docker tag $TAG  $LATEST   
             docker login -e $DOCKER_USER -u $CIRCLE_USERNAME -p $DOCKER_PASS         
             docker push $TAG
             docker push $LATEST
